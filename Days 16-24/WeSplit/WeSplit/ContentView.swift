@@ -34,17 +34,22 @@ struct ContentView: View {
     }
     
     var body: some View {
-        NavigationView{
+        NavigationView {
             Form {
                 Section {
                     TextField("Price", text: $price).keyboardType(.numberPad)
-                    Picker(selectAmountOfPeopleTitle, selection: $selectedAmountOfPeople){
+                    Picker("Selected \(selectedAmountOfPeople + 2) people", selection: $selectedAmountOfPeople){
                         ForEach(2 ..< 100) {
                             Text("\($0) people")
                         }
-                    Text("\(selectedAmountOfPeople) people")
-                    }
-                    .pickerStyle(MenuPickerStyle())
+                    }.pickerStyle(MenuPickerStyle())
+                }.onTapGesture {
+                    UIApplication.shared.sendAction(
+                        #selector(UIResponder.resignFirstResponder),
+                        to:nil,
+                        from:nil,
+                        for:nil
+                    )
                 }
                 
                 Section(header: Text(selectPercentageTitle).textCase(.none)) {
@@ -55,6 +60,7 @@ struct ContentView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
+                
                 Section(header: Text(amountPerPersonTitle).textCase(.none)) {
                     Text(String(format: "%.2f", dividedSum))
                 }
@@ -62,10 +68,10 @@ struct ContentView: View {
                 Section(header: Text(totalAmountForCheck).textCase(.none)) {
                     Text(String(format: "%.2f", totalSum))
                 }
+                
             }
             .navigationTitle(navigationTitle)
         }
-        
     }
 }
 
