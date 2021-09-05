@@ -40,13 +40,13 @@ struct ContentView: View {
                                 .overlay(Capsule().stroke(Color.black, lineWidth: 1))
                         })
                 }
+                Text("Your score: \(score)").font(.title2).foregroundColor(.white)
                 Spacer()
             }
             .alert(isPresented: $presentAlert) {
                 Alert(
                     title: Text(scoreTitle),
-                    message: Text("Your score is \(score)"),
-                    dismissButton: .default(Text("Continue")) {
+                        dismissButton: .default(Text("Continue")) {
                         askQuestion()
                     })
             }
@@ -59,7 +59,8 @@ struct ContentView: View {
             scoreTitle = "Correct"
             score += 1
         } else {
-            scoreTitle = "Wrong"
+            scoreTitle = "Wrong! That's the flag of \(flags[number])"
+            score -= 1
         }
         presentAlert = true
     }
