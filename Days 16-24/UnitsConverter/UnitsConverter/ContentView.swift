@@ -47,7 +47,14 @@ struct ContentView: View {
         NavigationView {
             Form {
                 Section(header: Text("Convert from").textCase(.none)){
-                    TextField("Number", text: $inputNumber)
+                    TextField("Number", text: $inputNumber).keyboardType(.numberPad).onTapGesture {
+                        UIApplication.shared.sendAction(
+                            #selector(UIResponder.resignFirstResponder),
+                            to:nil,
+                            from:nil,
+                            for:nil
+                        )
+                    }
                     
                     Picker("Convert from", selection: $selectedInputUnit) {
                         ForEach(Unit.allCases) { unit in
@@ -65,7 +72,7 @@ struct ContentView: View {
                 }
 
                 Section(header: Text("Converted units").textCase(.none)) {
-                    Text("\(outputNumber)")
+                    Text(String(format: "%.2f", outputNumber))
                 }
             }.navigationTitle("Converter")
         }
