@@ -67,6 +67,7 @@ struct ContentView: View {
                 
                 Section(header: Text(totalAmountForCheck).textCase(.none)) {
                     Text(String(format: "%.2f", totalSum))
+                        .foregroundColor(selectedPercentage == 0 ? .red : .blue)
                 }
                 
             }

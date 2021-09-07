@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+struct FlagView: View {
+    var image: Image
+    
+    var body: some View {
+        image
+            .renderingMode(.original)
+            .clipShape(Capsule())
+            .overlay(Capsule().stroke(Color.black, lineWidth: 1))
+    }
+}
+
 struct ContentView: View {
     @State private var correctAnswer = Int.random(in: 0..<3)
     @State private var presentAlert = false
@@ -34,10 +45,7 @@ struct ContentView: View {
                             tapTheFlag(flag)
                         },
                         label: {
-                            Image(flags[flag])
-                                .renderingMode(.original)
-                                .clipShape(Capsule())
-                                .overlay(Capsule().stroke(Color.black, lineWidth: 1))
+                            FlagView(image: Image(flags[flag]))            
                         })
                 }
                 Text("Your score: \(score)").font(.title2).foregroundColor(.white)
