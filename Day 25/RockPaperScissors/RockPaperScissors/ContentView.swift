@@ -47,7 +47,6 @@ struct ContentView: View {
             .padding()
             Text("Score: \(score)")
                 .font(.title2)
-            
         }
     }
     
