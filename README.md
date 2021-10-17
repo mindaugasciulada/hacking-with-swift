@@ -29,5 +29,13 @@ Day 15 – Swift review, day three <br>
 
 <b>Day 25 challenge. Rock, paper, scissors game with additional negation logic. </b><p>
 <img src="https://user-images.githubusercontent.com/14318712/132405270-cb756dcd-cb55-4cac-a4ea-99febdc892df.gif" width="296" height="640"/>
+ 
+<b>Days 36-46. Scaling up to bigger apps</b><br>
+<b>iExpense app is a tracker that separates personal costs from business costs. </b><p>
+ 
+<img src="https://user-images.githubusercontent.com/14318712/137626909-06dc5dc4-3d09-453a-bc5c-8b85bddec6f6.gif" width="296" height="640"/>
+
+
+
 
 
