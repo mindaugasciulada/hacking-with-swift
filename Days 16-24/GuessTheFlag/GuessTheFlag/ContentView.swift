@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct FlagView: View {
+struct FlagView: View, Identifiable {
+    var id: Int
     var image: Image
     
     var body: some View {
@@ -20,7 +21,11 @@ struct FlagView: View {
 
 struct ContentView: View {
     @State private var correctAnswer = Int.random(in: 0..<3)
+    @State private var userTappedOnCorectAnswer = false
     @State private var presentAlert = false
+    @State private var animationAmount = 0.0
+    @State private var opacityAmount = 1.00
+
     @State private var scoreTitle = ""
     @State private var flags = ["US", "Poland", "UK", "France", "Ireland", "Estonia", "Germany", "Italy", "Nigeria", "Monaco", "Russia", "Spain"].shuffled()
     @State private var score = 0
@@ -42,10 +47,23 @@ struct ContentView: View {
                 ForEach(0 ..< 3) { flag in
                     Button(
                         action: {
-                            tapTheFlag(flag)
+                            withAnimation {
+                                self.animationAmount = -360
+                                self.opacityAmount = 0.75
+                                tapTheFlag(flag)
+                            }
+
+
                         },
                         label: {
-                            FlagView(image: Image(flags[flag]))            
+                            
+                            FlagView(id: flag, image: Image(flags[flag]))
+                                .rotation3DEffect(flags[flag] == flags[correctAnswer] && userTappedOnCorectAnswer ? .degrees(animationAmount) : .degrees(0), axis: (x: 0, y: 1, z: 0))
+                                .opacity(flags[flag] == flags[correctAnswer] && userTappedOnCorectAnswer ? 1 : opacityAmount)
+
+                                .animation(.default)
+
+
                         })
                 }
                 Text("Your score: \(score)").font(.title2).foregroundColor(.white)
@@ -54,7 +72,7 @@ struct ContentView: View {
             .alert(isPresented: $presentAlert) {
                 Alert(
                     title: Text(scoreTitle),
-                        dismissButton: .default(Text("Continue")) {
+                    dismissButton: .default(Text("Continue")) {
                         askQuestion()
                     })
             }
@@ -64,17 +82,31 @@ struct ContentView: View {
     
     func tapTheFlag(_ number: Int) {
         if number == correctAnswer {
+
+            userTappedOnCorectAnswer.toggle()
             scoreTitle = "Correct"
             score += 1
+
+//            withAnimation{
+                askQuestion()
+//            }
+
         } else {
             scoreTitle = "Wrong! That's the flag of \(flags[number])"
             score -= 1
+//            withAnimation{
+                askQuestion()
+//            }
         }
-        presentAlert = true
     }
     
     func askQuestion() {
         flags.shuffle()
+        correctAnswer = Int.random(in: 0..<3)
+        userTappedOnCorectAnswer = false
+        animationAmount = 0
+        opacityAmount = 1
+
         presentAlert = false
     }
 }
