@@ -35,7 +35,8 @@ Day 15 – Swift review, day three <br>
  
 <img src="https://user-images.githubusercontent.com/14318712/137626909-06dc5dc4-3d09-453a-bc5c-8b85bddec6f6.gif" width="296" height="640"/>
 
-
+ <b>Days 49-59. Focus on datas</b><br>
+ <img src="https://user-images.githubusercontent.com/14318712/139593032-32116e01-ca8a-44db-939b-69958c226252.gif" width="296" height="640"/>
 
 
 
